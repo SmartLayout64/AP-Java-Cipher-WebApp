@@ -6,6 +6,39 @@ public class CipherApp {
     private static Scanner scanner = new Scanner(System.in);
     
     /*
+    Clears the console screen and displays a title header.
+    */
+
+    public static void clearScreen(String title) {
+        System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+        switch (title) {
+            case "caesar-cipher":
+                System.out.println("\n" + //
+                                "█▀▀ ▄▀█ █▀▀ █▀ ▄▀█ █▀█   █▀▀ █ █▀█ █░█ █▀▀ █▀█\n" + //
+                                "█▄▄ █▀█ ██▄ ▄█ █▀█ █▀▄   █▄▄ █ █▀▀ █▀█ ██▄ █▀▄");
+                break;
+        
+            case "substitution-cipher":
+                System.out.println("\n" + //
+                                        "█▀ █░█ █▄▄ █▀ ▀█▀ █ ▀█▀ █░█ ▀█▀ █ █▀█ █▄░█   █▀▀ █ █▀█ █░█ █▀▀ █▀█\n" + //
+                                        "▄█ █▄█ █▄█ ▄█ ░█░ █ ░█░ █▄█ ░█░ █ █▄█ █░▀█   █▄▄ █ █▀▀ █▀█ ██▄ █▀▄");
+                break;
+
+            default:
+                break;
+        }
+        System.out.println("--------------------------------------------------");
+    }
+
+    /*
+    Prompt the user to hit enter to continue.
+    */
+   public static void promptEnter() {
+        System.out.println("\nPress Enter to continue...");
+        scanner.nextLine();
+    }
+
+    /*
     Multiple predefined user interface prompts identified by a unique string ID.
     Returns user input as a string.
     */
@@ -51,29 +84,94 @@ public class CipherApp {
         String action = "0";
 
         while (true) {
+            clearScreen("caesar-cipher");
+            
             action = getUserRequest("selection-keyed-cipherAction");
 
             switch (action) {
                 case "1":
+                    clearScreen("caesar-cipher");
                     message = getUserRequest("input-messageEncrypt");
                     String encodedMessage = caesarCipher.encode(message);
                     System.out.println("Encoded Message: " + encodedMessage);
+
+                    promptEnter();
                     break;
-                
+
                 case "2":
+                    clearScreen("caesar-cipher");
                     message = getUserRequest("input-messageDecrypt");
                     String decodedMessage = caesarCipher.decode(message);
                     System.out.println("Decoded Message: " + decodedMessage);
+
+                    promptEnter();
                     break;
-                
+
                 case "3":
+                    clearScreen("caesar-cipher");
                     key = getUserRequest("input-cipherKey");
                     caesarCipher = new CaesarCipher(Integer.parseInt(key));
-                    System.out.println("Key updated.");
+                    System.out.println("Key successfully updated.");
+
+                    promptEnter();
                     break;
-                
+
                 case "4":
-                    System.out.println("Returning to main menu.");
+                    break;
+
+                default:
+                    System.out.println("Invalid, please pick a valid option.");
+            }
+
+            if (action.equals("4")) {
+                break;
+            }
+        }
+    }
+
+    public static void runSubstitutionCipher() {
+        // todo user 
+        String key = getUserRequest("input-cipherKey");
+        Cipherable substitutionCipher = new SubstitutionCipher(key);
+
+        String message = "";
+
+        String action = "0";
+
+        while (true) {
+            clearScreen("substitution-cipher");
+            
+            action = getUserRequest("selection-keyed-cipherAction");
+
+            switch (action) {
+                case "1":
+                    clearScreen("substitution-cipher");
+                    message = getUserRequest("input-messageEncrypt");
+                    String encodedMessage = substitutionCipher.encode(message);
+                    System.out.println("Encoded Message: " + encodedMessage);
+
+                    promptEnter();
+                    break;
+
+                case "2":
+                    clearScreen("substitution-cipher");
+                    message = getUserRequest("input-messageDecrypt");
+                    String decodedMessage = substitutionCipher.decode(message);
+                    System.out.println("Decoded Message: " + decodedMessage);
+
+                    promptEnter();
+                    break;
+
+                case "3":
+                    clearScreen("substitution-cipher");
+                    key = getUserRequest("input-cipherKey");
+                    substitutionCipher = new SubstitutionCipher(key);
+                    System.out.println("Key successfully updated.");
+
+                    promptEnter();
+                    break;
+
+                case "4":
                     break;
 
                 default:
@@ -87,7 +185,7 @@ public class CipherApp {
     }
 
 	public static void main(String[] args) {
-		runCaesarCipher();
+		runSubstitutionCipher();
 	}
 
     // public static void main(String[] args) {
