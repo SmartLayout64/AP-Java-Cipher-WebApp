@@ -56,4 +56,8 @@ public class CaesarCipher implements Cipherable {
     public static int generateRandomKey() {
         return (int) (Math.random() * 25) + 1;
     }
+
+    public static String getGenericDescription() {
+        return "Shifts each character by a key";
+    }
 }
