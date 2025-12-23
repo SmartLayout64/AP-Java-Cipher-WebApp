@@ -144,7 +144,11 @@ public class CipherApp {
                 //todo implement random key generation
                 case "4":
                     clearScreen("caesar-cipher");
-                    System.out.println("Random key generation not yet implemented.");
+
+                    int newKey = CaesarCipher.generateRandomKey();
+
+                    caesarCipher = new CaesarCipher(newKey);
+                    System.out.println("Key successfully updated to " + newKey);
 
                     promptEnter();
                     break;
@@ -212,7 +216,11 @@ public class CipherApp {
                 //todo implement random key generation
                 case "4":
                     clearScreen("substitution-cipher");
-                    System.out.println("Random key generation not yet implemented.");
+                    
+                    String newKey = SubstitutionCipher.generateRandomKey();
+
+                    substitutionCipher = new SubstitutionCipher(newKey);
+                    System.out.println("Key successfully updated to " + newKey);
 
                     promptEnter();
                     break;
@@ -305,7 +313,7 @@ public class CipherApp {
                     break;
 
                 default:
-                    System.out.println("Invalid choice, exiting program.");
+                    System.out.println("Invalid choice.");
             }
         }
     }
