@@ -79,4 +79,7 @@ public class SubstitutionCipher implements Cipherable {
         return new String(letters);
     }
 
+    public static String getGenericDescription() {
+        return "Substitute every character for its counterpart in a key";
+    }
 }
