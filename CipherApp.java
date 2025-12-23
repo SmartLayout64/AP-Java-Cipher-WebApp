@@ -134,11 +134,17 @@ public class CipherApp {
                     break;
 
                 case "3":
+                	
                     clearScreen("caesar-cipher");
                     key = getUserRequest("input-cipherKey");
-                    caesarCipher = new CaesarCipher(Integer.parseInt(key));
-                    System.out.println("Key successfully updated.");
-
+                    
+                    try {
+                    	caesarCipher = new CaesarCipher(Integer.parseInt(key));
+                    	System.out.println("Key successfully updated.");
+                    } catch (NumberFormatException e) {
+                        System.out.println("Invalid key. Key must be an integer.");
+                    }
+                    
                     promptEnter();
                     break;
 
