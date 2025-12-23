@@ -6,7 +6,6 @@ public class CipherApp {
     /*
     Clears the console screen and displays a title header.
     */
-
     public static void clearScreen(String title) {
         System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
         switch (title) {
@@ -55,7 +54,7 @@ public class CipherApp {
     public static String getUserRequest(String id) {
         switch (id) {
             case "selection-cipherType":
-                System.out.println("Select a cipher to use.\n\t1. Caesar Cipher - " + CaesarCipher.getGenericDescription() + "\n\t2. Substitution Cipher - " + SubstitutionCipher.getGenericDescription() + "\n\t3. Pair Shift Cipher - " + PairShiftCipher.getGenericDescription() + "\n");
+                System.out.println("Select a cipher to use.\n\t1. Caesar Cipher - " + CaesarCipher.getGenericDescription() + "\n\t2. Substitution Cipher - " + SubstitutionCipher.getGenericDescription() + "\n\t3. Pair Shift Cipher - " + PairShiftCipher.getGenericDescription() + "\n\t4. Exit the program\n");
 				return scanner.nextLine();
 
 			case "input-cipherKey":
@@ -252,8 +251,12 @@ public class CipherApp {
         
         if (response.equals("1")) {
             pairshiftCipher = new PairShiftCipher(true);
-        } else {
+        } else if (response.equals("2")) {
             pairshiftCipher = new PairShiftCipher(false);
+        } else {
+        	System.out.println("\nInvalid choice, defaulting to false.");
+        	pairshiftCipher = new PairShiftCipher(false);
+        	promptEnter();
         }
         
 
@@ -300,7 +303,9 @@ public class CipherApp {
 
 
 	public static void main(String[] args) {
-        while (true) {
+        boolean exit = false;
+		
+		while (!exit) {
             clearScreen("main-menu");
             String cipherChoice = getUserRequest("selection-cipherType");
 
@@ -316,10 +321,17 @@ public class CipherApp {
                 case "3":
                     runPairShiftCipher();
                     break;
+                
+                case "4":
+                	exit = true;
+                	break;
 
                 default:
                     System.out.println("Invalid choice.");
             }
         }
+		
+		clearScreen("main-menu");
+		System.out.println("Thank you for using E-Cipher.\nMade by Ashrit Mandava.");
     }
 }
