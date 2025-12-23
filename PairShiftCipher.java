@@ -98,4 +98,8 @@ public class PairShiftCipher implements Cipherable {
             return decodedText.toString();
         }
     }
+
+    public static String getGenericDescription() {
+        return "Shifts every other character by the index of the character before.";
+    }
 }
