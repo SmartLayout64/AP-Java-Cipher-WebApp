@@ -131,8 +131,13 @@ public class CipherApp {
 
     public static void runSubstitutionCipher() {
         // todo user 
+
+        clearScreen("substitution-cipher");
         String key = getUserRequest("input-cipherKey");
+        
         Cipherable substitutionCipher = new SubstitutionCipher(key);
+
+        promptEnter();
 
         String message = "";
 
