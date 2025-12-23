@@ -100,6 +100,6 @@ public class PairShiftCipher implements Cipherable {
     }
 
     public static String getGenericDescription() {
-        return "Shifts every other character by the index of the character before.";
+        return "Shifts every other character by the index of the character before";
     }
 }
