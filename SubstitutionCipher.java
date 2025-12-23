@@ -62,4 +62,21 @@ public class SubstitutionCipher implements Cipherable {
         }
         return decoded.toString();
     }
+
+
+    // I asked ChatGPT to teach me a way to shuffle letters to create a random substitution key
+    // It showed this method, called Fisher-Yates Shuffle
+    public static String generateRandomKey() {
+        char[] letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".toCharArray();
+
+        for (int i = letters.length - 1; i > 0; i--) {
+            int j = (int) (Math.random() * (i + 1));
+            char temp = letters[i];
+            letters[i] = letters[j];
+            letters[j] = temp;
+        }
+
+        return new String(letters);
+    }
+
 }

@@ -52,4 +52,8 @@ public class CaesarCipher implements Cipherable {
         }
         return decodedText.toString();
     }
+
+    public static int generateRandomKey() {
+        return (int) (Math.random() * 25) + 1;
+    }
 }

@@ -24,6 +24,17 @@ public class CipherApp {
                                         "▄█ █▄█ █▄█ ▄█ ░█░ █ ░█░ █▄█ ░█░ █ █▄█ █░▀█   █▄▄ █ █▀▀ █▀█ ██▄ █▀▄");
                 break;
 
+            case "pairshift-cipher":
+                System.out.println("\n" + //
+                                        "█▀█ ▄▀█ █ █▀█   █▀ █░█ █ █▀▀ ▀█▀   █▀▀ █ █▀█ █░█ █▀▀ █▀█\n" + //
+                                        "█▀▀ █▀█ █ █▀▄   ▄█ █▀█ █ █▀░ ░█░   █▄▄ █ █▀▀ █▀█ ██▄ █▀▄");
+
+            case "main-menu":
+                System.out.println("\n" + //
+                                        "█▀▀ ▄▄ █▀▀ █ █▀█ █░█ █▀▀ █▀█\n" + //
+                                        "██▄ ░░ █▄▄ █ █▀▀ █▀█ ██▄ █▀▄");
+                break;
+
             default:
                 break;
         }
@@ -53,7 +64,7 @@ public class CipherApp {
 				return scanner.nextLine();
             
             case "selection-keyed-cipherAction":
-                System.out.println("Select an action.\n\t1. Encode a message\n\t2. Decode a message\n\t3. Change the current key\n\t4. Return to main menu\n");
+                System.out.println("Select an action.\n\t1. Encode a message\n\t2. Decode a message\n\t3. Change the current key\n\t4. Generate a random key\n\t5. Return to main menu\n");
 				return scanner.nextLine();
 
             case "selection-unkeyed-cipherAction":
@@ -68,15 +79,29 @@ public class CipherApp {
                 System.out.print("Enter message to decrypt: ");
 				return scanner.nextLine();
 
+            case "unlabelled-true-false":
+                System.out.print("\t1. True\n\t2. False\n");
+				return scanner.nextLine();
+
             default:
                 System.out.println("UI Not Found");
-                return "UI Not Found";
+                throw new IllegalArgumentException("No UI with ID: " + id);
         }
     }
 
     public static void runCaesarCipher() {
-        // todo user 
+        clearScreen("caesar-cipher");
+        
         String key = getUserRequest("input-cipherKey");
+        
+        try {
+            Integer.parseInt(key);
+        } catch (NumberFormatException e) {
+            System.out.println("Invalid key. Key must be an integer.");
+            promptEnter();
+            return;
+        }
+
         Cipherable caesarCipher = new CaesarCipher(Integer.parseInt(key));
 
         String message = "";
@@ -116,14 +141,22 @@ public class CipherApp {
                     promptEnter();
                     break;
 
+                //todo implement random key generation
                 case "4":
+                    clearScreen("caesar-cipher");
+                    System.out.println("Random key generation not yet implemented.");
+
+                    promptEnter();
+                    break;
+
+                case "5":
                     break;
 
                 default:
                     System.out.println("Invalid, please pick a valid option.");
             }
 
-            if (action.equals("4")) {
+            if (action.equals("5")) {
                 break;
             }
         }
@@ -176,42 +209,104 @@ public class CipherApp {
                     promptEnter();
                     break;
 
+                //todo implement random key generation
                 case "4":
+                    clearScreen("substitution-cipher");
+                    System.out.println("Random key generation not yet implemented.");
+
+                    promptEnter();
+                    break;
+
+                case "5":
                     break;
 
                 default:
                     System.out.println("Invalid, please pick a valid option.");
             }
 
-            if (action.equals("4")) {
+            if (action.equals("5")) {
                 break;
             }
         }
     }
 
+    public static void runPairShiftCipher() {
+        clearScreen("pairshift-cipher");
+        System.out.println("Use uppercase letters?");
+        String response = getUserRequest("unlabelled-true-false");
+        
+        Cipherable pairshiftCipher;
+        
+        if (response.equals("1")) {
+            pairshiftCipher = new PairShiftCipher(true);
+        } else {
+            pairshiftCipher = new PairShiftCipher(false);
+        }
+        
+
+        String message = "";
+
+        String action = "0";
+
+        while (true) {
+            clearScreen("pairshift-cipher");
+            
+            action = getUserRequest("selection-unkeyed-cipherAction");
+
+            switch (action) {
+                case "1":
+                    clearScreen("pairshift-cipher");
+                    message = getUserRequest("input-messageEncrypt");
+                    String encodedMessage = pairshiftCipher.encode(message);
+                    System.out.println("Encoded Message: " + encodedMessage);
+
+                    promptEnter();
+                    break;
+
+                case "2":
+                    clearScreen("pairshift-cipher");
+                    message = getUserRequest("input-messageDecrypt");
+                    String decodedMessage = pairshiftCipher.decode(message);
+                    System.out.println("Decoded Message: " + decodedMessage);
+
+                    promptEnter();
+                    break;
+
+                case "3":
+                    break;
+
+                default:
+                    System.out.println();
+            }
+
+            if (action.equals("3")) {
+                break;
+            }
+        }
+    }
+
+
 	public static void main(String[] args) {
-		runSubstitutionCipher();
-	}
+        while (true) {
+            clearScreen("main-menu");
+            String cipherChoice = getUserRequest("selection-cipherType");
 
-    // public static void main(String[] args) {
-    //     try (Socket socket = new Socket("192.168.1.204", 5000);
-    //          DataOutputStream out = new DataOutputStream(socket.getOutputStream());
-    //          Scanner scanner = new Scanner(System.in)) {
+            switch (cipherChoice) {
+                case "1":
+                    runCaesarCipher();
+                    break;
 
-    //         System.out.println("[CLIENT] Connected to server.");
-    //         String message = "";
+                case "2":
+                    runSubstitutionCipher();
+                    break;
 
-    //         while (!message.equals("!~DISCONNECT")) {
-    //             System.out.print("Enter message: ");
-    //             message = scanner.nextLine();
-                
-    //             out.writeUTF(message);
-    //             out.flush();
-    //         }
+                case "3":
+                    runPairShiftCipher();
+                    break;
 
-    //         System.out.println("[CLIENT] Connection closed.");
-    //     } catch (IOException e) {
-    //         System.err.println("[CLIENT] Error: " + e.getMessage());
-    //     }
-    // }
+                default:
+                    System.out.println("Invalid choice, exiting program.");
+            }
+        }
+    }
 }
