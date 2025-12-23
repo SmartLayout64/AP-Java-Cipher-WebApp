@@ -29,6 +29,7 @@ public class CipherApp {
                                         "█▀█ ▄▀█ █ █▀█   █▀ █░█ █ █▀▀ ▀█▀   █▀▀ █ █▀█ █░█ █▀▀ █▀█\n" + //
                                         "█▀▀ █▀█ █ █▀▄   ▄█ █▀█ █ █▀░ ░█░   █▄▄ █ █▀▀ █▀█ ██▄ █▀▄");
 
+                break;
             case "main-menu":
                 System.out.println("\n" + //
                                         "█▀▀ ▄▄ █▀▀ █ █▀█ █░█ █▀▀ █▀█\n" + //
@@ -56,7 +57,7 @@ public class CipherApp {
     public static String getUserRequest(String id) {
         switch (id) {
             case "selection-cipherType":
-                System.out.println("Select a cipher to use.\n\t1. Caesar Cipher\n\t2. Substitution Cipher\n\t3. Pair Shift Cipher\n");
+                System.out.println("Select a cipher to use.\n\t1. Caesar Cipher - " + CaesarCipher.getGenericDescription() + "\n\t2. Substitution Cipher - " + SubstitutionCipher.getGenericDescription() + "\n\t3. Pair Shift Cipher - " + PairShiftCipher.getGenericDescription() + "\n");
 				return scanner.nextLine();
 
 			case "input-cipherKey":
